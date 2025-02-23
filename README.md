@@ -35,3 +35,11 @@ SELECT * FROM osoba;
 **Zadanie 2**
 ```sql
 SELECT * FROM osoba;
+
+**Zadania część 1**
+```sql
+# zadanie 1
+SELECT * FROM osoba;
+
+# zadanie 2
+SELECT * FROM osoba;
