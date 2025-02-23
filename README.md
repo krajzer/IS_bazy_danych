@@ -69,5 +69,22 @@ ADD magazyn VARCHAR(50);
 alter table pracownik modify stanowisko varchar(50) default 'sprzedawca';
 
 
+#Zadanie 6
+#7 pozycji z czego 2 po przecinku
+alter table pracownik add column pensja decimal(7,2);
+
+#Zadanie 7
+
+Alter table dzial RENAME COLUMN nazwa TO nazwa_dzialu;
+alter table dzial rename column id TO id_dzialu;
+alter table pracownik rename column id to id_pracownika;
+
+#Zadanie 8
+Select * from pracownik;
+
+delete from pracownik where id_pracownika = 3;
+
+
+
 
 
