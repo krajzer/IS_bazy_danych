@@ -86,5 +86,28 @@ delete from pracownik where id_pracownika = 3;
 
 
 
+#Zadanie 1
+
+alter table pracownik
+add column dzial int(50),
+add constraint fk_dzial
+foreign key (dzial) references dzial(id_dzialu)
+on delete restrict;
+
+
+#zadanie 2
+
+create table stanowisko(
+id_stanowiska int(100) auto_increment primary key,
+nazwa_stanowiska varchar(50)
+);
+
+#zadanie 3
+
+#można po value(default, 'kierowca')
+insert into stanowisko value(1,'kierowca');
+insert into stanowisko value(2, 'montażysta');
+
+select * from stanowisko
 
 
