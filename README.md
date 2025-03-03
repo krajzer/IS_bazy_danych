@@ -41,7 +41,8 @@ stanowisko enum ('sprzedawca', 'magazynier', 'księgowa')
 
 **Zadanie 2**
 # Zadanie 2
-```INSERT INTO pracownik(id, imie, nazwisko, data_urodzenia, stanowisko) values
+```
+INSERT INTO pracownik(id, imie, nazwisko, data_urodzenia, stanowisko) values
 (default, 'Jan', 'Kowalski', '1990-10-10', 'magazynier'),
 (default, 'Konrad', 'Rajzer', '1987-07-06', 'sprzedawca'),
 (default, 'Anna', 'Biernat', '1995-02-08', 'księgowa');
