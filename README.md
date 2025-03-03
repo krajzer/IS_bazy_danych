@@ -29,7 +29,7 @@ Lista wypunktowana
 
 **Zadanie 1**
 ```sql
-# zadanie 1
+
 create table pracownik2 (
 id int auto_increment primary key,
 imie varchar(50) not null,
