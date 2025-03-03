@@ -30,7 +30,7 @@ Lista wypunktowana
 **Zadanie 1**
 ```sql
 # zadanie 1
-create table pracownik (
+create table pracownik2 (
 id int auto_increment primary key,
 imie varchar(50) not null,
 nazwisko varchar(100) not null,
@@ -41,73 +41,94 @@ stanowisko enum ('sprzedawca', 'magazynier', 'księgowa')
 
 **Zadanie 2**
 # Zadanie 2
-INSERT INTO pracownik(id, imie, nazwisko, data_urodzenia, stanowisko) values
+```INSERT INTO pracownik(id, imie, nazwisko, data_urodzenia, stanowisko) values
 (default, 'Jan', 'Kowalski', '1990-10-10', 'magazynier'),
 (default, 'Konrad', 'Rajzer', '1987-07-06', 'sprzedawca'),
 (default, 'Anna', 'Biernat', '1995-02-08', 'księgowa');
 
+insert into pracownik(id, imie, nazwisko, data_urodzenia, stanowisko) values
+(default, 'Genowef', 'Rudzikowski', '1925-01-01', 'magazynier');
+```
 ###Stwórz tabelę dzial z kolumnami:
 
 #id - liczba, autonumer, klucz główny
 #nazwa - tekst, max. 255 znaków
 
 #Zadanie 3
-
+```
 create table dzial(
 id int auto_increment primary key,
 nazwa varchar(255)
 );
 
-#Zadanie 4
-
 ALTER TABLE dzial
-ADD sprzedaz VARCHAR(50),
+ADD sprzedaz VARCHAR(50),	
 ADD ksiegowosc VARCHAR(50),
 ADD magazyn VARCHAR(50);
-
+```
 #Zadanie 5
+```
 alter table pracownik modify stanowisko varchar(50) default 'sprzedawca';
-
-
+```
 #Zadanie 6
 #7 pozycji z czego 2 po przecinku
+```
 alter table pracownik add column pensja decimal(7,2);
-
+```
 #Zadanie 7
-
+```
 Alter table dzial RENAME COLUMN nazwa TO nazwa_dzialu;
 alter table dzial rename column id TO id_dzialu;
 alter table pracownik rename column id to id_pracownika;
-
+```
 #Zadanie 8
-Select * from pracownik;
 
-delete from pracownik where id_pracownika = 3;
+#delete from pracownik1 where id =(select max(id) from pracownik2); nie działa podwójne zapytanie
+#ustawienie zmiennej max_id celem wyszukania najwyższego id bez wcześniejszego sprawdzenia w bazie do którego rekordu należy
+```SET @max_id = (SELECT MAX(id_pracownika) FROM pracownik);
+SELECT @max_id;
 
+delete from pracownik where id_pracownika = @max_id;
 
+```
+#lab1 zadanie 2
 
 #Zadanie 1
-
-alter table pracownik
-add column dzial int(50),
-add constraint fk_dzial
-foreign key (dzial) references dzial(id_dzialu)
-on delete restrict;
+```
+alter table pracownik add column dzial int;
+alter table pracownik add foreign key (dzial) references dzial (id_dzialu) on delete cascade;
 
 
-#zadanie 2
+delete from dzial where id_dzialu = 1;
+select * from dzial;
+```
+#Zadanie
 
+#Zadanie 2
+
+```
 create table stanowisko(
-id_stanowiska int(100) auto_increment primary key,
+id_stanowiska int primary key,
 nazwa_stanowiska varchar(50)
 );
 
-#zadanie 3
+insert into stanowisko values
+(1, 'sprzedawca'),
+(2, 'ksiegowosc'),
+(3, 'magazyn');
+```
 
-#można po value(default, 'kierowca')
-insert into stanowisko value(1,'kierowca');
-insert into stanowisko value(2, 'montażysta');
+#Zadanie 3
+```
+alter table pracownik add column stanowisko_temp int;
+alter table pracownik add foreign key (stanowisko_temp) references stanowisko (id_stanowiska);
 
-select * from stanowisko
-
-
+update pracownik set stanowisko_temp = 3 where stanowisko = 'magazynier';
+update pracownik set stanowisko_temp = 1 where stanowisko = 'sprzedawca';
+update pracownik set stanowisko_temp = 2 where stanowisko = 'ksiegowa';
+```
+#Zadanie 4
+```
+alter table pracownik drop foreign key pracownik_ibfk_1;
+alter table pracownik add foreign key (dzial) references dzial (id_dzialu) on delete set null;
+```
