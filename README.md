@@ -133,3 +133,44 @@ update pracownik set stanowisko_temp = 2 where stanowisko = 'ksiegowa';
 alter table pracownik drop foreign key pracownik_ibfk_1;
 alter table pracownik add foreign key (dzial) references dzial (id_dzialu) on delete set null;
 ```
+
+##Funkcje, agregacja i grupowanie. Zadania.
+#Zadanie 1
+```
+select imie, nazwisko, data_urodzenia from pracownik;
+```
+#Zadanie 2
+```
+SELECT imie, nazwisko, year(data_urodzenia) from pracownik;
+```
+
+#zadanie 3
+```
+select dzial.nazwa, count(pracownik.dzial)
+from dzial
+left join pracownik on dzial.id_dzialu = pracownik.dzial
+group by dzial.nazwa
+```
+#Zadanie 4
+```
+select kategoria.nazwa_kategori, count(towar.id_towaru)
+from kategoria
+left join towar on kategoria.id_kategori = towar.kategoria
+group by kategoria.nazwa_kategori;
+```
+#Zadanie 5
+```
+select k.nazwa_kategori, group_concat(t.nazwa_towaru separator ', ') as towary
+from kategoria k
+left join towar t on k.id_kategori = t.kategoria
+group by k.nazwa_kategori;
+```
+#Zadanie 6
+```
+select round(avg(pensja), 2) as serdnia_pensja
+from pracownik;
+```
+#Zadanie 7
+```
+
+```
