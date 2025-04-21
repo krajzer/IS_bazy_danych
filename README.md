@@ -172,5 +172,30 @@ from pracownik;
 ```
 #Zadanie 7
 ```
-
+select round(avg(pensja),2) from pracownik
+where year(curdate()) - year(data_zatrudnienia) >=5;
+```
+#Zadanie 8
+```
+select t.nazwa_towaru, sum(poz_zam.ilosc) as ilosc_sprzedana
+from towar t left join pozycja_zamowienia poz_zam on poz_zam.towar = t.id_towaru
+group by t.nazwa_towaru
+order by ilosc_sprzedana desc
+limit 10;
+```
+#Zadanie 9
+```
+select z.numer_zamowienia, sum(poz_zam.ilosc * poz_zam.cena) as wartosc_zam
+from zamowienie z join pozycja_zamowienia poz_zam on z.id_zamowienia = poz_zam.zamowienie
+where year(z.data_zamowienia) = 2017 and month(z.data_zamowienia) between 1 and 3
+group by z.numer_zamowienia;
+```
+#Zadanie 10
+```
+select pracownik.imie, pracownik.nazwisko, sum(pozycja_zamowienia.cena * pozycja_zamowienia.ilosc) as wartosc_zam
+from pracownik
+join zamowienie on pracownik.id_pracownika = zamowienie.pracownik_id_pracownika
+join pozycja_zamowienia on zamowienie.id_zamowienia = pozycja_zamowienia.zamowienie
+group by pracownik.imie, pracownik.nazwisko
+order by wartosc_zam;
 ```
