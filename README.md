@@ -199,3 +199,46 @@ join pozycja_zamowienia on zamowienie.id_zamowienia = pozycja_zamowienia.zamowie
 group by pracownik.imie, pracownik.nazwisko
 order by wartosc_zam;
 ```
+##Zadania lab3 cz.2
+#Zadanie 1
+```
+select d.nazwa, max(p.pensja) as maks_pensja, avg(p.pensja) as srednia_pensja
+from dzial d join pracownik p on d.id_dzialu = p.dzial
+group by d.nazwa
+order by maks_pensja;
+```
+#Zadanie 2
+```
+select k.pelna_nazwa as klient, sum(p_zam.ilosc * p_zam.cena) as wartosc_zamowienia
+from klient k
+join zamowienie z on k.id_klienta = z.klient
+join pozycja_zamowienia p_zam on z.id_zamowienia = p_zam.zamowienie
+group by k.pelna_nazwa
+order by wartosc_zamowienia desc
+limit 10;
+```
+#Zadanie 3
+```
+select sum(p_zam.ilosc * p_zam.cena) as wartosc_przychodu, year(z.data_zamowienia)
+from pozycja_zamowienia p_zam
+join zamowienie z on z.id_zamowienia = p_zam.zamowienie
+group by year(z.data_zamowienia);
+```
+#Zadanie 4
+```
+select s_zam.nazwa_statusu_zamowienia, sum(p_zam.ilosc * p_zam.cena) as wartosc
+from status_zamowienia s_zam
+join zamowienie on zamowienie.status_zamowienia = s_zam.id_statusu_zamowienia
+join pozycja_zamowienia p_zam on zamowienie.id_zamowienia = p_zam.zamowienie
+where s_zam.nazwa_statusu_zamowienia = "anulowane"
+group by s_zam.nazwa_statusu_zamowienia;
+```
+#Zadanie 5
+```
+select a.miejscowosc, sum(pozycja_zamowienia.ilosc * pozycja_zamowienia.cena) as wartosc
+from zamowienie z
+join klient on z.klient = klient.id_klienta
+join adres_klienta a on klient.id_klienta = a.klient
+join pozycja_zamowienia on z.id_zamowienia = pozycja_zamowienia.zamowienie
+group by a.miejscowosc;
+```
