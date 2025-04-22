@@ -271,3 +271,11 @@ SELECT MONTHNAME(data_urodzenia) AS miesiac,
 FROM pracownik
 GROUP BY miesiac
 ```
+#Zadanie 10
+```
+select pracownik.id_pracownika as id,
+concat(pracownik.imie, ' ', pracownik.nazwisko) as pracownik,
+timestampdiff(month, pracownik.data_zatrudnienia, curdate()) * pracownik.pensja as suma_wyplat
+from pracownik
+order by suma_wyplat desc
+```
