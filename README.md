@@ -242,3 +242,32 @@ join adres_klienta a on klient.id_klienta = a.klient
 join pozycja_zamowienia on z.id_zamowienia = pozycja_zamowienia.zamowienie
 group by a.miejscowosc;
 ```
+#Zadanie 6
+```
+select sum(p_zam.ilosc * p_zam.cena) as wartosc
+from pozycja_zamowienia p_zam
+join zamowienie on p_zam.zamowienie = zamowienie.id_zamowienia
+join status_zamowienia on zamowienie.status_zamowienia = status_zamowienia.id_statusu_zamowienia
+where status_zamowienia.nazwa_statusu_zamowienia = "zrealizowane";
+```
+#Zadanie 7
+```
+select sum(p_zam.ilosc * (p_zam.cena - towar.cena_zakupu)) as suma
+from pozycja_zamowienia p_zam
+join zamowienie on p_zam.zamowienie = zamowienie.id_zamowienia
+join towar on p_zam.towar = towar.id_towaru;
+```
+#Zadanie 8
+```
+select s.towar, s.ilosc, s.jm, k.nazwa_kategori
+from stan_magazynowy s
+join towar on s.towar = towar.id_towaru
+join kategoria k on towar.kategoria = k.id_kategori;
+```
+#Zadanie 9
+```
+SELECT MONTHNAME(data_urodzenia) AS miesiac, 
+       COUNT(*) AS liczba_pracownikow
+FROM pracownik
+GROUP BY miesiac
+```
