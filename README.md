@@ -55,7 +55,7 @@ insert into pracownik(id, imie, nazwisko, data_urodzenia, stanowisko) values
 #id - liczba, autonumer, klucz główny
 #nazwa - tekst, max. 255 znaków
 
-#Zadanie 3
+# Zadanie 3
 ```
 create table dzial(
 id int auto_increment primary key,
@@ -67,22 +67,22 @@ ADD sprzedaz VARCHAR(50),
 ADD ksiegowosc VARCHAR(50),
 ADD magazyn VARCHAR(50);
 ```
-#Zadanie 5
+# Zadanie 5
 ```
 alter table pracownik modify stanowisko varchar(50) default 'sprzedawca';
 ```
-#Zadanie 6
-#7 pozycji z czego 2 po przecinku
+# Zadanie 6
+# 7 pozycji z czego 2 po przecinku
 ```
 alter table pracownik add column pensja decimal(7,2);
 ```
-#Zadanie 7
+# Zadanie 7
 ```
 Alter table dzial RENAME COLUMN nazwa TO nazwa_dzialu;
 alter table dzial rename column id TO id_dzialu;
 alter table pracownik rename column id to id_pracownika;
 ```
-#Zadanie 8
+# Zadanie 8
 
 #delete from pracownik1 where id =(select max(id) from pracownik2); nie działa podwójne zapytanie
 #ustawienie zmiennej max_id celem wyszukania najwyższego id bez wcześniejszego sprawdzenia w bazie do którego rekordu należy
@@ -92,9 +92,9 @@ SELECT @max_id;
 delete from pracownik where id_pracownika = @max_id;
 
 ```
-#lab1 zadanie 2
+# lab1 zadanie 2
 
-#Zadanie 1
+# Zadanie 1
 ```
 alter table pracownik add column dzial int;
 alter table pracownik add foreign key (dzial) references dzial (id_dzialu) on delete cascade;
@@ -103,9 +103,9 @@ alter table pracownik add foreign key (dzial) references dzial (id_dzialu) on de
 delete from dzial where id_dzialu = 1;
 select * from dzial;
 ```
-#Zadanie
+# Zadanie
 
-#Zadanie 2
+# Zadanie 2
 
 ```
 create table stanowisko(
@@ -119,7 +119,7 @@ insert into stanowisko values
 (3, 'magazyn');
 ```
 
-#Zadanie 3
+# Zadanie 3
 ```
 alter table pracownik add column stanowisko_temp int;
 alter table pracownik add foreign key (stanowisko_temp) references stanowisko (id_stanowiska);
@@ -128,54 +128,54 @@ update pracownik set stanowisko_temp = 3 where stanowisko = 'magazynier';
 update pracownik set stanowisko_temp = 1 where stanowisko = 'sprzedawca';
 update pracownik set stanowisko_temp = 2 where stanowisko = 'ksiegowa';
 ```
-#Zadanie 4
+# Zadanie 4
 ```
 alter table pracownik drop foreign key pracownik_ibfk_1;
 alter table pracownik add foreign key (dzial) references dzial (id_dzialu) on delete set null;
 ```
 
-##Funkcje, agregacja i grupowanie. Zadania.
-#Zadanie 1
+## Funkcje, agregacja i grupowanie. Zadania.
+# Zadanie 1
 ```
 select imie, nazwisko, data_urodzenia from pracownik;
 ```
-#Zadanie 2
+# Zadanie 2
 ```
 SELECT imie, nazwisko, year(data_urodzenia) from pracownik;
 ```
 
-#zadanie 3
+# zadanie 3
 ```
 select dzial.nazwa, count(pracownik.dzial)
 from dzial
 left join pracownik on dzial.id_dzialu = pracownik.dzial
 group by dzial.nazwa
 ```
-#Zadanie 4
+# Zadanie 4
 ```
 select kategoria.nazwa_kategori, count(towar.id_towaru)
 from kategoria
 left join towar on kategoria.id_kategori = towar.kategoria
 group by kategoria.nazwa_kategori;
 ```
-#Zadanie 5
+# Zadanie 5
 ```
 select k.nazwa_kategori, group_concat(t.nazwa_towaru separator ', ') as towary
 from kategoria k
 left join towar t on k.id_kategori = t.kategoria
 group by k.nazwa_kategori;
 ```
-#Zadanie 6
+# Zadanie 6
 ```
 select round(avg(pensja), 2) as serdnia_pensja
 from pracownik;
 ```
-#Zadanie 7
+# Zadanie 7
 ```
 select round(avg(pensja),2) from pracownik
 where year(curdate()) - year(data_zatrudnienia) >=5;
 ```
-#Zadanie 8
+# Zadanie 8
 ```
 select t.nazwa_towaru, sum(poz_zam.ilosc) as ilosc_sprzedana
 from towar t left join pozycja_zamowienia poz_zam on poz_zam.towar = t.id_towaru
@@ -190,7 +190,7 @@ from zamowienie z join pozycja_zamowienia poz_zam on z.id_zamowienia = poz_zam.z
 where year(z.data_zamowienia) = 2017 and month(z.data_zamowienia) between 1 and 3
 group by z.numer_zamowienia;
 ```
-#Zadanie 10
+# Zadanie 10
 ```
 select pracownik.imie, pracownik.nazwisko, sum(pozycja_zamowienia.cena * pozycja_zamowienia.ilosc) as wartosc_zam
 from pracownik
@@ -199,15 +199,15 @@ join pozycja_zamowienia on zamowienie.id_zamowienia = pozycja_zamowienia.zamowie
 group by pracownik.imie, pracownik.nazwisko
 order by wartosc_zam;
 ```
-##Zadania lab3 cz.2
-#Zadanie 1
+## Zadania lab3 cz.2
+# Zadanie 1
 ```
 select d.nazwa, max(p.pensja) as maks_pensja, avg(p.pensja) as srednia_pensja
 from dzial d join pracownik p on d.id_dzialu = p.dzial
 group by d.nazwa
 order by maks_pensja;
 ```
-#Zadanie 2
+# Zadanie 2
 ```
 select k.pelna_nazwa as klient, sum(p_zam.ilosc * p_zam.cena) as wartosc_zamowienia
 from klient k
@@ -217,14 +217,14 @@ group by k.pelna_nazwa
 order by wartosc_zamowienia desc
 limit 10;
 ```
-#Zadanie 3
+# Zadanie 3
 ```
 select sum(p_zam.ilosc * p_zam.cena) as wartosc_przychodu, year(z.data_zamowienia)
 from pozycja_zamowienia p_zam
 join zamowienie z on z.id_zamowienia = p_zam.zamowienie
 group by year(z.data_zamowienia);
 ```
-#Zadanie 4
+# Zadanie 4
 ```
 select s_zam.nazwa_statusu_zamowienia, sum(p_zam.ilosc * p_zam.cena) as wartosc
 from status_zamowienia s_zam
@@ -233,7 +233,7 @@ join pozycja_zamowienia p_zam on zamowienie.id_zamowienia = p_zam.zamowienie
 where s_zam.nazwa_statusu_zamowienia = "anulowane"
 group by s_zam.nazwa_statusu_zamowienia;
 ```
-#Zadanie 5
+# Zadanie 5
 ```
 select a.miejscowosc, sum(pozycja_zamowienia.ilosc * pozycja_zamowienia.cena) as wartosc
 from zamowienie z
@@ -242,7 +242,7 @@ join adres_klienta a on klient.id_klienta = a.klient
 join pozycja_zamowienia on z.id_zamowienia = pozycja_zamowienia.zamowienie
 group by a.miejscowosc;
 ```
-#Zadanie 6
+# Zadanie 6
 ```
 select sum(p_zam.ilosc * p_zam.cena) as wartosc
 from pozycja_zamowienia p_zam
@@ -250,28 +250,28 @@ join zamowienie on p_zam.zamowienie = zamowienie.id_zamowienia
 join status_zamowienia on zamowienie.status_zamowienia = status_zamowienia.id_statusu_zamowienia
 where status_zamowienia.nazwa_statusu_zamowienia = "zrealizowane";
 ```
-#Zadanie 7
+# Zadanie 7
 ```
 select sum(p_zam.ilosc * (p_zam.cena - towar.cena_zakupu)) as suma
 from pozycja_zamowienia p_zam
 join zamowienie on p_zam.zamowienie = zamowienie.id_zamowienia
 join towar on p_zam.towar = towar.id_towaru;
 ```
-#Zadanie 8
+# Zadanie 8
 ```
 select s.towar, s.ilosc, s.jm, k.nazwa_kategori
 from stan_magazynowy s
 join towar on s.towar = towar.id_towaru
 join kategoria k on towar.kategoria = k.id_kategori;
 ```
-#Zadanie 9
+# Zadanie 9
 ```
 SELECT MONTHNAME(data_urodzenia) AS miesiac, 
        COUNT(*) AS liczba_pracownikow
 FROM pracownik
 GROUP BY miesiac
 ```
-#Zadanie 10
+# Zadanie 10
 ```
 select pracownik.id_pracownika as id,
 concat(pracownik.imie, ' ', pracownik.nazwisko) as pracownik,
