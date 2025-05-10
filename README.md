@@ -134,6 +134,92 @@ alter table pracownik drop foreign key pracownik_ibfk_1;
 alter table pracownik add foreign key (dzial) references dzial (id_dzialu) on delete set null;
 ```
 
+
+## Lab 2 cz. 1
+
+#Zadanie 1
+```
+select nazwisko from pracownik
+order by nazwisko asc
+```
+#Zadanie 2
+
+```
+select imie, nazwisko, pensja
+from pracownik
+where year(data_urodzenia) > 1979;
+```
+
+#Zadanie 3
+
+```
+select *
+from pracownik
+where pensja between 3500 and 5000;
+```
+
+#Zadanie 4
+
+```
+select *
+from towar
+join stan_magazynowy on towar.id_towaru = stan_magazynowy.towar
+where stan_magazynowy.ilosc > 10;
+```
+
+#Zadanie 5
+
+```
+select *
+from towar
+where nazwa_towaru like 'A%'
+	or nazwa_towaru like 'B'
+	or nazwa_towaru like 'C';
+```
+#Zadanie 6
+
+```
+select *
+from klient
+where czy_firma = "0";
+```
+
+#Zadanie 7
+
+```
+select *
+from zamowienie
+order by data_zamowienia desc limit 10;
+```
+
+#Zadanie 8
+
+```
+select *
+from pracownik
+order by pensja asc limit 5;
+```
+
+#Zadanie 9
+
+```
+select *
+from towar
+where nazwa_towaru not like '%a%'
+order by cena_zakupu desc limit 10;
+```
+
+#Zadanie 10
+
+```
+select *
+from towar
+join stan_magazynowy on towar.kategoria = stan_magazynowy.towar
+join jednostka_miary on jednostka_miary.id_jednostki = stan_magazynowy.towar
+where jednostka_miary.nazwa = 'szt'
+order by towar.nazwa_towaru, towar.cena_zakupu desc;
+```
+
 ## Funkcje, agregacja i grupowanie. Zadania.
 # Zadanie 1
 ```
