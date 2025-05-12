@@ -67,6 +67,15 @@ ADD sprzedaz VARCHAR(50),
 ADD ksiegowosc VARCHAR(50),
 ADD magazyn VARCHAR(50);
 ```
+# Zadanie 4
+
+```
+INSERT INTO dzial (nazwa_dzialu) VALUES # id to auto_increment
+('sprzedaz'),
+('księgowość'),
+('magazyn');
+```
+
 # Zadanie 5
 ```
 alter table pracownik modify stanowisko varchar(50) default 'sprzedawca';
