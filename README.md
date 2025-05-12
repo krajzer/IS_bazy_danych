@@ -229,6 +229,23 @@ where jednostka_miary.nazwa = 'szt'
 order by towar.nazwa_towaru, towar.cena_zakupu desc;
 ```
 
+#Zadanie 11
+
+```
+CREATE TABLE towary_powyzej_100 AS
+SELECT * FROM towary
+WHERE cena >= 100;
+```
+
+#Zadanie 12
+
+```
+CREATE TABLE pracownik_50_plus LIKE pracownik;
+
+INSERT INTO pracownik_50_plus
+SELECT * FROM pracownik WHERE wiek >= 50;
+```
+
 ## Funkcje, agregacja i grupowanie. Zadania.
 # Zadanie 1
 ```
